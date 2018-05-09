@@ -5,5 +5,5 @@ application:
   log_to_stdout: true
 database:
   url: ~
-server:
-  enable_static_files: true
+sidekiq:
+  enable_authentication: false
