@@ -12,7 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
-  config.consider_all_requests_local = Settings.environment.use_local_routes
+  config.consider_all_requests_local = Settings.application.use_local_routes
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -36,7 +36,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   # Deliver mail if configured to do so.
-  config.action_mailer.perform_deliveries = Settings.environment.send_email
+  config.action_mailer.perform_deliveries = Settings.application.send_email
 
   # Put files in tmp/mails
   config.action_mailer.delivery_method = :file
