@@ -1,4 +1,9 @@
-server:
+application:
+  hostname: unknown.domain
+  engineering_email: no-reply@example.com
   enable_static_files: true
+  log_to_stdout: true
 database:
   url: ~
+server:
+  enable_static_files: true
