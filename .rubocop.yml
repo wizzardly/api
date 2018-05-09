@@ -1,7 +1,12 @@
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.3.5
+  TargetRubyVersion: 2.5.0
+  Exclude:
+    - bin/**/*
+    - config/boot.rb
+    - Gemfile*
+    - Rakefile
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -783,9 +788,6 @@ Style/FormatStringToken:
 Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
-  Exclude:
-    - Gemfile*
-    - bin/**/*
 Style/GlobalVars:
   Enabled: true
 Style/GuardClause:
