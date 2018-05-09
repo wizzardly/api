@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = Settings.server.enable_static_files
+  config.public_file_server.enabled = Settings.application.enable_static_files
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -53,9 +53,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: Settings.environment.hostname }
+  config.action_mailer.default_url_options = { host: Settings.application.hostname }
   config.action_mailer.smtp_settings = {
-    domain: Settings.environment.hostname,
+    domain: Settings.application.hostname,
     address: Settings.sendgrid.address,
     port: Settings.sendgrid.address,
     authentication: :plain,
