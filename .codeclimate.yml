@@ -1,0 +1,12 @@
+exclude_paths:
+  - "config/"
+  - "lib/generators"
+  - "**/vendor/**/*"
+
+engines:
+  rubocop:
+    enabled: true
+
+ratings:
+  paths:
+    - "**.rb"
