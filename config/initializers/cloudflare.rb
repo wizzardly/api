@@ -10,11 +10,11 @@ class CloudflareMiddleware
   end
 
   def call(req)
-    if req['HTTP_CF_CONNECTING_IP']
-      req['HTTP_REMOTE_ADDR_BEFORE_CF'] = req['REMOTE_ADDR']
-      req['HTTP_X_FORWARDED_FOR_BEFORE_CF'] = req['HTTP_X_FORWARDED_FOR']
-      req['REMOTE_ADDR'] = req['HTTP_CF_CONNECTING_IP']
-      req['HTTP_X_FORWARDED_FOR'] = req['HTTP_CF_CONNECTING_IP']
+    if req["HTTP_CF_CONNECTING_IP"]
+      req["HTTP_REMOTE_ADDR_BEFORE_CF"] = req["REMOTE_ADDR"]
+      req["HTTP_X_FORWARDED_FOR_BEFORE_CF"] = req["HTTP_X_FORWARDED_FOR"]
+      req["REMOTE_ADDR"] = req["HTTP_CF_CONNECTING_IP"]
+      req["HTTP_X_FORWARDED_FOR"] = req["HTTP_CF_CONNECTING_IP"]
     end
     @app.call(req)
   end
