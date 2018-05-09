@@ -82,15 +82,10 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if Settings.server.log_to_stdout
-    logger = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
-  end
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
   # Logstash: Configuration
   config.logger = LogStashLogger.new(type: :stdout)
+  config.logstash.formatter = :json_lines
 end
