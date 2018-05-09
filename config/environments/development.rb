@@ -12,7 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
-  config.consider_all_requests_local = true
+  config.consider_all_requests_local = Settings.environment.use_local_routes
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -35,6 +35,13 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Deliver mail if configured to do so.
+  config.action_mailer.perform_deliveries = Settings.environment.send_email
+
+  # Put files in tmp/mails
+  config.action_mailer.delivery_method = :file
+
+  # Should anything be cached?
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
@@ -46,11 +53,20 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Logstash: Configuration
+  config.logstash.type = :file
+
+  # Logstash: Default Rails logging
+  config.logstash.formatter = ::Logger::Formatter
+
+  # Logstash: JSON logging (Simulate deployed environments)
+  # config.colorize_logging = false
+  # config.logstash.formatter = :json_lines
 end

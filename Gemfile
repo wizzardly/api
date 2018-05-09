@@ -19,7 +19,9 @@ gem "puma", "~> 3.11"
 # Utilities
 gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", ">= 1.1.0", require: false
-gem "logstasher"
+gem "config"
+gem "lograge"
+gem "logstash-logger"
 
 # Security
 gem "rack-cors"

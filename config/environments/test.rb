@@ -40,9 +40,22 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Configure the mailer
+  config.action_mailer.default_url_options = { host: 'api.wizzardly.test' }
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Logstash: Configuration
+  config.logstash.type = :file
+
+  # Logstash: Default Rails logging
+  config.logstash.formatter = ::Logger::Formatter
+
+  # Logstash: JSON logging (Simulate deployed environments)
+  # config.colorize_logging = false
+  # config.logstash.formatter = :json_lines
 end
