@@ -15,6 +15,7 @@ gem "pg", ">= 0.18", "< 2.0"
 
 # Server
 gem "puma", "~> 3.11"
+gem "sidekiq"
 
 # Utilities
 gem "bcrypt", "~> 3.1.7"
