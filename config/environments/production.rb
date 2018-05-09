@@ -83,6 +83,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Logstash: Configuration
-  config.logstash.formatter = :json_lines
-  config.logger = LogStashLogger.new(type: :stdout)
+  # config.logstash.formatter = :json_lines
+  # config.logger = LogStashLogger.new(type: :stdout)
 end
