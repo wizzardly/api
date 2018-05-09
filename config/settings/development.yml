@@ -1,0 +1,3 @@
+environment:
+  send_email: true
+  use_local_routes: true

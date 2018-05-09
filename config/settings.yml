@@ -1,0 +1,4 @@
+server:
+  enable_static_files: true
+database:
+  url: ~
