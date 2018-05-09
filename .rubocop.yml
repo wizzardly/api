@@ -8,6 +8,8 @@ AllCops:
     - Gemfile*
     - Rakefile
     - spec/*_hepler.rb
+    - db/**/*
+    - lib/tasks/**/*
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -226,6 +228,8 @@ Layout/TrailingWhitespace:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: true
+  Exclude:
+    - spec/**/*
 Lint/AmbiguousOperator:
   Enabled: true
 Lint/AmbiguousRegexpLiteral:
