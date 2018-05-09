@@ -19,14 +19,16 @@ require "action_view/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-class WizzardlyApi::Application < Rails::Application
-  config.load_defaults 5.2
+module WizzardlyApi
+  class Application < Rails::Application
+    config.load_defaults 5.2
 
-  config.api_only = true
+    config.api_only = true
 
-  config.generators do |g|
-    g.assets false
-    g.helper false
-    g.fixture_replacement :factory_bot, dir: "spec/factories"
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+    end
   end
 end
