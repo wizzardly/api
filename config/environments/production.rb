@@ -84,6 +84,5 @@ Rails.application.configure do
 
   # Logstash: Configuration
   config.logstash.formatter = :json_lines
-  puts "here>>>>"
   config.logger = LogStashLogger.new(type: :stdout)
 end

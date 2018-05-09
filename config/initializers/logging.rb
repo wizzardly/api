@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.configure do
+  puts "WUT"
   config.lograge.base_controller_class = "ActionController::API"
   config.lograge.enabled = true
   # config.lograge.formatter = Lograge::Formatters::Logstash.new
