@@ -18,6 +18,7 @@ gem "puma", "~> 3.11"
 
 # Utilities
 gem "bootsnap", ">= 1.1.0", require: false
+gem "logstasher"
 
 # Security
 gem "rack-cors"
