@@ -1,5 +1,10 @@
-server:
-  enable_static_files: <%= ENV.fetch('RAILS_SERVE_STATIC_FILES', 'true') == 'true' %>
-  log_to_stdout: <%= ENV.fetch('RAILS_LOG_TO_STDOUT', 'true') == 'true' %>
 database:
-  url: <%= ENV.fetch('DATABASE_URL') %>
+  url: <%= ENV.fetch("DATABASE_URL") %>
+sendgrid:
+  address: smtp.sendgrid.net
+  port: 587
+  username: <%= ENV.fetch("SENDGRID_USERNAME") %>
+  password: <%= ENV.fetch("SENDGRID_PASSWORD) %>
+server:
+  enable_static_files: <%= ENV.fetch("RAILS_SERVE_STATIC_FILES", "true") == "true" %>
+  log_to_stdout: <%= ENV.fetch("RAILS_LOG_TO_STDOUT", "true") == "true" %>

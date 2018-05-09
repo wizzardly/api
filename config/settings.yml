@@ -1,4 +1,6 @@
-server:
-  enable_static_files: true
+application:
+  hostname: <%= ENV.fetch("HOST_NAME") %>
 database:
   url: ~
+server:
+  enable_static_files: true
