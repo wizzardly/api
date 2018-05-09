@@ -372,7 +372,7 @@ Metrics/BlockLength:
   Enabled: true
   Max: 24
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 Metrics/BlockNesting:
   Enabled: true
   Max: 3
@@ -783,6 +783,9 @@ Style/FormatStringToken:
 Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
+  Exclude:
+    - Gemfile*
+    - bin/**/*
 Style/GlobalVars:
   Enabled: true
 Style/GuardClause:
