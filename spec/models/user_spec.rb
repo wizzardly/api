@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 # == Schema Information
 #
 # Table name: users
@@ -28,16 +28,18 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_db_index(:email).unique }
   end
 
+  shared_examples "name field" do |field|
+    it { is_expected.to validate_presence_of(field) }
+    it { is_expected.to strip_attribute(field).collapse_spaces }
+    it { is_expected.to validate_length_of(field).is_at_least(2) }
+  end
+
   describe "#first_name" do
-    it { is_expected.to validate_presence_of(:first_name) }
-    it { is_expected.to strip_attribute(:first_name).collapse_spaces }
-    it { is_expected.to validate_length_of(:first_name).is_at_least(2) }
+    it_behaves_like "name field", :first_name
   end
 
   describe "#last_name" do
-    it { is_expected.to validate_presence_of(:last_name) }
-    it { is_expected.to strip_attribute(:last_name).collapse_spaces }
-    it { is_expected.to validate_length_of(:last_name).is_at_least(2) }
+    it_behaves_like "name field", :last_name
   end
 
   describe "#password" do
