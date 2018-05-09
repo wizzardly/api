@@ -7,7 +7,7 @@ sendgrid:
   address: smtp.sendgrid.net
   port: 587
   username: <%= ENV.fetch("SENDGRID_USERNAME") %>
-  password: <%= ENV.fetch("SENDGRID_PASSWORD) %>
+  password: <%= ENV.fetch("SENDGRID_PASSWORD") %>
 sidekiq:
   enable_authentication: true
   username: <%= ENV.fetch("SIDEKIQ_USERNAME") %>
