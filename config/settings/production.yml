@@ -1,6 +1,6 @@
 application:
-  enable_static_files: <%= ENV.fetch("RAILS_SERVE_STATIC_FILES", "true") == "true" %>
-  log_to_stdout: <%= ENV.fetch("RAILS_LOG_TO_STDOUT", "true") == "true" %>
+  enable_static_files: <%= ENV.fetch("RAILS_SERVE_STATIC_FILES", "enabled") == "enabled" %>
+  log_to_stdout: <%= ENV.fetch("RAILS_LOG_TO_STDOUT", "enabled") == "enabled" %>
 database:
   url: <%= ENV.fetch("DATABASE_URL") %>
 sendgrid:
