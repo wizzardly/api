@@ -1,2 +1,3 @@
 environment:
   hostname: api.wizzardly.test
+  engineering_email: engineering@wizzardly.test

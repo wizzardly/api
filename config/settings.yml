@@ -1,5 +1,8 @@
 application:
   hostname: <%= ENV.fetch("HOST_NAME") %>
+  engineering_email: <%= ENV.fetch("ENGINEERING_EMAIL") %>
+  enable_static_files: true
+  log_to_stdout: true
 database:
   url: ~
 server:

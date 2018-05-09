@@ -1,5 +1,6 @@
 application:
   hostname: api.wizzardly.dev
+  engineering_email: engineering@wizzardly.dev
 environment:
   send_email: true
   use_local_routes: true
