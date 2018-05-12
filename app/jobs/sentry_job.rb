@@ -5,19 +5,20 @@ class SentryJob < ApplicationJob
 
   rescue_from ActiveJob::DeserializationError do |deserialization_error|
     # If not rescued, this error causes an infinite loop.
-    Rails.logger.tagged(%w[Error DeserializationError Sentry]) do
-      Rails.logger.fatal(
-        event: "failed_sending_event_to_sentry",
-        error_details: arguments[0],
-        error_message: deserialization_error.message,
-        backtrace: deserialization_error.backtrace,
-      )
-    end
+    ActiveSupport::Notifications.instrument(
+      "deserialization_error.sentry_job",
+      event_hash: arguments[0],
+      deserialization_error: deserialization_error,
+    )
   end
 
   def perform(event_hash)
-    Raven.send_event(event_hash) if Settings.sentry.enable
+    unless Settings.sentry.enable
+      ActiveSupport::Notifications.instrument "sentry_disabled.sentry_job", event_hash: event_hash
+      return
+    end
 
-    Rails.logger.tagged(%w[Sentry]) { Rails.logger.info event: "reported_error_to_sentry" }
+    Raven.send_event(event_hash)
+    ActiveSupport::Notifications.instrument "sent_to_sentry.sentry_job"
   end
 end
