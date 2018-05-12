@@ -18,8 +18,7 @@ Config.setup do |config|
   # config.overwrite_arrays = true
 
   # Load environment variables from the `ENV` object and override any settings defined in files.
-  #
-  # config.use_env = false
+  config.use_env = false
 
   # Define ENV variable prefix deciding which variables to load into config.
   #
