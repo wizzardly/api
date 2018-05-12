@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationLogger < ActiveSupport::LogSubscriber
+  LOGGABLE_BACKTRACE_LENGTH = 4
+
   protected
 
   def loggable_error(error)
@@ -12,7 +14,7 @@ class ApplicationLogger < ActiveSupport::LogSubscriber
   private
 
   def loggable_backtrace(error)
-    error.backtrace.first(8).join("\n")
+    error.backtrace.first(LOGGABLE_BACKTRACE_LENGTH).join("\n")
   rescue StandardError
     nil
   end
