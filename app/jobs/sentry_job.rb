@@ -3,7 +3,7 @@
 class SentryJob < ApplicationJob
   queue_as :very_high
 
-  rescue_from ActiveJob::SerializationError do |deserialization_error|
+  rescue_from ActiveJob::DeserializationError do |deserialization_error|
     # If not rescued, this error causes an infinite loop.
     Rails.logger.tagged(%w[Error DeserializationError Sentry]) do
       Rails.logger.fatal(

@@ -10,7 +10,7 @@ RSpec.describe SentryJob, type: :job do
 
     let(:sentry_enabled) { true }
     let(:event_hash) { Hash[*Faker::Lorem.words(4)] }
-    let(:instance) { described_class.new(event_hash) }
+    let(:instance) { described_class.new event_hash }
 
     before do
       allow(Settings).to receive_message_chain(:sentry, :enable).and_return(sentry_enabled)
@@ -18,16 +18,16 @@ RSpec.describe SentryJob, type: :job do
     end
 
     context "when something goes wrong" do
-      let(:serialized) { instance.serialize }
+      before do
+        allow(instance).to receive(:deserialize_arguments_if_needed) do
+          # Cause a DeserializationError
+          ActiveJob::Arguments.deserialize([ Class ])
+        end
 
-      let(:event_hash) do
-        { invalid_value: Class.new }
+        instance.perform_now
       end
 
-      it "does not try and log an error if an error occurred" do
-        expect { described_class.execute serialized }.to raise_error ActiveJob::SerializationError
-        is_expected.not_to have_received(:send_event)
-      end
+      it { is_expected.not_to have_received(:send_event) }
     end
 
     context "when nothing goes wrong" do
