@@ -57,7 +57,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     domain: Settings.application.hostname,
     address: Settings.sendgrid.address,
-    port: Settings.sendgrid.address,
+    port: Settings.sendgrid.port,
     authentication: :plain,
     user_name: Settings.sendgrid.username,
     password: Settings.sendgrid.password,

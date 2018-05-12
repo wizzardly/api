@@ -29,6 +29,8 @@ module WizzardlyApi
 
     config.action_mailer.deliver_later_queue_name = "medium_low"
 
+    config.eager_load_paths += Dir[Rails.root.join("app", "loggers", "**/")]
+
     config.generators do |g|
       g.assets false
       g.helper false
