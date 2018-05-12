@@ -1,0 +1,8 @@
+:queues:
+  - critical
+  - very_high
+  - high
+  - medium_high
+  - medium_low
+  - low
+  - very_low

@@ -11,3 +11,6 @@ sidekiq:
   enable_authentication: true
   username: <%= ENV.fetch("SIDEKIQ_USERNAME") %>
   password: <%= ENV.fetch("SIDEKIQ_PASSWORD") %>
+sentry:
+  enable: true
+  dsn: <%= ENV.fetch('SENTRY_DSN') %>

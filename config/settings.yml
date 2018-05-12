@@ -6,3 +6,5 @@ database:
   url: ~
 sidekiq:
   enable_authentication: false
+sentry:
+  enable: false
