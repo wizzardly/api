@@ -4,3 +4,4 @@ en:
   engineering_mailer:
     sentry_failure:
       subject: "[CRITICAL] Failed to report to Sentry!"
+      title: "Failed to Report Error to Sentry"

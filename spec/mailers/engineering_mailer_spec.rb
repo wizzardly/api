@@ -22,6 +22,8 @@ RSpec.describe EngineeringMailer, type: :mailer do
       expect(mail.to).to eq [ to_email ]
       expect(mail.from).to eq [ t("email.sender") ]
       expect(mail.subject).to eq t("engineering_mailer.sentry_failure.subject")
+
+      expect(mail.body).to match t("engineering_mailer.sentry_failure.title")
       expect(mail.body).to match JSON.pretty_generate(event, object_nl: "\n")
     end
   end
