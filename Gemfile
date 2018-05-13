@@ -20,12 +20,8 @@ gem "sidekiq"
 # Monitoring
 gem "sentry-raven"
 
-# Utilities
-gem "bcrypt", "~> 3.1.7"
-gem "bootsnap", ">= 1.1.0", require: false
-gem "config"
-gem "lograge"
-gem "logstash-logger"
+# Authentication
+gem "knock"
 
 # Security
 gem "rack-cors"
@@ -38,6 +34,13 @@ gem "roadie-rails"
 
 # ActiveRecord Utilities
 gem "strip_attributes"
+
+# Utilities
+gem "bcrypt", "~> 3.1.7"
+gem "bootsnap", ">= 1.1.0", require: false
+gem "config"
+gem "lograge"
+gem "logstash-logger"
 
 group :development, :test do
   gem "database_cleaner"
