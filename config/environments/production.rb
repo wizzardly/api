@@ -6,6 +6,9 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
+  # Disable request forgery protection.
+  config.action_controller.allow_forgery_protection = false
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -85,4 +88,7 @@ Rails.application.configure do
   # Logstash: Configuration
   config.logstash.type = :stdout
   config.logstash.formatter = :json_lines
+
+  # Lograge: Configuration
+  config.lograge.formatter = Lograge::Formatters::Logstash.new
 end

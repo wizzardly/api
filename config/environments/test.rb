@@ -27,7 +27,7 @@ Rails.application.configure do
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 
-  # Disable request forgery protection in test environment.
+  # Disable request forgery protection.
   config.action_controller.allow_forgery_protection = false
 
   # Store uploaded files on the local file system in a temporary directory

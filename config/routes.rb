@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   end
 
   mount Sidekiq::Web => "/admin/sidekiq"
+
+  post :user_token, to: "user_token#create"
 end
