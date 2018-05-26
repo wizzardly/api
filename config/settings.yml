@@ -1,6 +1,7 @@
 application:
-  host_name: ~
+  cors_origins: ~
   engineering_email: no-reply@example.com
+  host_name: ~
 sidekiq:
   enable_authentication: false
   username: ~

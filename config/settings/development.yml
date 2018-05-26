@@ -1,4 +1,5 @@
 application:
+  cors_origins: localhost:8080
   host_name: api.wizzardly.dev
   engineering_email: engineering@wizzardly.dev
   perform_caching: <%= Rails.root.join("tmp", "caching-dev.txt").exist? %>
