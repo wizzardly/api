@@ -41,7 +41,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Configure the mailer
-  config.action_mailer.default_url_options = { host: 'api.wizzardly.test' }
+  config.action_mailer.default_url_options = { host: Settings.application.host_name }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
