@@ -1,8 +1,7 @@
 application:
+  host_name: <%= ENV.fetch("HOST_NAME") %>
   enable_static_files: <%= ENV.fetch("RAILS_SERVE_STATIC_FILES", "enabled") == "enabled" %>
   engineering_email: <%= ENV.fetch("ENGINEERING_EMAIL") %>
-database:
-  url: <%= ENV.fetch("DATABASE_URL") %>
 sendgrid:
   address: smtp.sendgrid.net
   port: 587

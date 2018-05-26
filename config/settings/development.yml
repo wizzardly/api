@@ -1,5 +1,5 @@
 application:
-  hostname: api.wizzardly.dev
+  host_name: api.wizzardly.dev
   engineering_email: engineering@wizzardly.dev
 environment:
   send_email: true

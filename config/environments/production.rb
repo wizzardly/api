@@ -56,9 +56,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: Settings.application.hostname }
+  config.action_mailer.default_url_options = { host: Settings.application.host_name }
   config.action_mailer.smtp_settings = {
-    domain: Settings.application.hostname,
+    domain: Settings.application.host_name,
     address: Settings.sendgrid.address,
     port: Settings.sendgrid.port,
     authentication: :plain,

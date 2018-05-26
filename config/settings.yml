@@ -1,10 +1,14 @@
 application:
-  hostname: unknown.domain
+  host_name: unknown.domain
   engineering_email: no-reply@example.com
   enable_static_files: true
-database:
-  url: ~
+environment:
+  send_email: false
+  use_local_routes: false
 sidekiq:
   enable_authentication: false
+  username: ""
+  password: ""
 sentry:
   enable: false
+  dsn: ""
