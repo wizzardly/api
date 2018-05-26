@@ -31,3 +31,23 @@ ln -s /path/to/wizzardly-api api.wizzardly
 ```bash
 rake
 ```
+
+# Heroku Setup
+
+```
+heroku git:remote -a wizzardly-api-production -r production
+heroku git:remote -a wizzardly-api-staging -r staging
+```
+
+# Setting up git hooks
+
+Some convenience hooks have been placed in the `.githooks/` directory.
+
+To use one, simply:
+
+```shell
+cd .git/hooks
+ln -s ../../.githooks/pre-push .
+```
+
+- `pre-push`: Checks for pushes to the master branch and prompts you before allowing the push
