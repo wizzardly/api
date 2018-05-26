@@ -33,6 +33,7 @@ gem "redis"
 gem "roadie-rails"
 
 # ActiveRecord Utilities
+gem "active_model_serializers"
 gem "strip_attributes"
 
 # Utilities
