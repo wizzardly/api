@@ -50,7 +50,11 @@ RSpec.describe SentryJob, type: :job do
 
         it { is_expected.not_to have_received(:send_event) }
 
-        it_behaves_like "an instrumented event", "sentry_disabled.sentry_job"
+        it_behaves_like "an instrumented event", "sentry_disabled.sentry_job" do
+          let(:expected_data) do
+            { event_hash: event_hash }
+          end
+        end
       end
     end
   end
