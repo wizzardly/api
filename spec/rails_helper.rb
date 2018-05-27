@@ -45,6 +45,8 @@ RSpec.configure do |config|
     %i[debug info warn error fatal add].each do |method|
       allow(Rails.logger).to receive(method).and_call_original
     end
+
+    allow(ActiveSupport::Notifications).to receive(:instrument).and_call_original
   end
 
   config.after do
