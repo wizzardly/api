@@ -1,0 +1,9 @@
+Description:
+    Stubs out a new job logger file.
+
+Example:
+    `rails generate job_logger foo`
+
+    Generates:
+      Blotter: app/loggers/jobs/foo_job_logger.rb
+        Test:  spec/loggers/jobs/foo_job_logger_spec.rb
