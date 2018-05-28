@@ -8,7 +8,7 @@ module Loggers
 
     hook_for :test_framework, as: "cache_logger"
 
-    def create_blotter_file
+    def create_logger_file
       template "cache_logger.rb", File.join("app/loggers/caches/", class_path, "#{file_name}_cache_logger.rb")
     end
   end
