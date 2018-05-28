@@ -2,7 +2,7 @@ Description:
     Stubs out a new cache logger file.
 
 Example:
-    `rails generate cache_logger foo`
+    `rails generate loggers:cache foo`
 
     Generates:
       Logger: app/loggers/caches/foo_cache_logger.rb
