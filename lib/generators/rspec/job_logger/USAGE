@@ -1,0 +1,8 @@
+Description:
+    Stubs out a new spec file for a job logger.
+
+Example:
+    `rails generate rspec:job_logger foo`
+
+    Generates:
+      Test: spec/blotters/job/foo_job_logger_spec.rb
