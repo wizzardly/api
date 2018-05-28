@@ -9,5 +9,11 @@ module Rspec
     def create_spec_file
       template "logger_spec.rb", File.join("spec/loggers", class_path, "#{file_name}_logger_spec.rb")
     end
+
+    def add_to_log_file
+      append_to_file File.join("config/initializers/log_subscriptions.rb") do
+        "#{file_name.camelize}Logger.attach_to :#{file_name}"
+      end
+    end
   end
 end
