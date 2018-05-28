@@ -3,13 +3,7 @@
 require "rails_helper"
 
 RSpec.describe SentryJobLogger, type: :logger do
-  let(:instance) { described_class.new }
-  let(:event) { instance_double(ActiveSupport::Notifications::Event) }
-  let(:payload) do
-    {}
-  end
-
-  before { allow(event).to receive(:payload).and_return(payload) }
+  include_context "with application logger"
 
   it { expect(described_class <= ApplicationLogger).to be_truthy }
 
@@ -25,9 +19,7 @@ RSpec.describe SentryJobLogger, type: :logger do
       { entry: :deserialization_error, event_hash: event_hash }.merge(loggable_error)
     end
 
-    before do
-      allow(instance).to receive(:loggable_error).and_return(loggable_error)
-    end
+    before { allow(instance).to receive(:loggable_error).and_return(loggable_error) }
 
     it "fatal logs with the expected parameters" do
       allow(Rails.logger).to receive(:fatal) do |&block|

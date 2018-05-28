@@ -16,7 +16,7 @@ class SentryJobLogger < ApplicationLogger
     end
   end
 
-  def sent_to_sentry(_)
+  def sent_to_sentry(_event)
     Rails.logger.info do
       { entry: __method__ }
     end
