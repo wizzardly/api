@@ -8,7 +8,7 @@ module Loggers
 
     hook_for :test_framework, as: "job_logger"
 
-    def create_blotter_file
+    def create_logger_file
       template "job_logger.rb", File.join("app/loggers/jobs/", class_path, "#{file_name}_job_logger.rb")
     end
   end
