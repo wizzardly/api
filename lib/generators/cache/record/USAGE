@@ -1,0 +1,11 @@
+Description:
+    Stubs out a new record cache file.
+
+Example:
+    `rails generate record_cache foo`
+
+    Generates:
+      Cache:  app/caches/foo_cache.rb
+        Test: spec/caches/foo_cache_spec.rb
+      Logger: app/loggers/caches/foo_cache_logger.rb
+        Test: spec/loggers/caches/foo_cache_logger_spec.rb
