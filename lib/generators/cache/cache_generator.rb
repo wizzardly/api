@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CacheGenerator < Rails::Generators::NamedBase
-  class_option :loggers, type: :boolean, default: true
+  class_option :loggers, type: :boolean, default: false
 
   source_root File.expand_path("templates", __dir__)
 
