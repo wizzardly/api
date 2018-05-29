@@ -3,9 +3,9 @@
 require "rails/generators/active_record/model/model_generator"
 
 module Model
-  class ModelGenerator < Rails::Generators::JobGenerator
-    class_option :record_cache, type: :boolean, default: true
+  class ModelGenerator < Rails::Generators::ModelGenerator
+    class_option :cache, type: :boolean, default: true
 
-    hook_for :record_cache
+    hook_for :cache
   end
 end

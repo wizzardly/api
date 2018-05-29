@@ -1,0 +1,8 @@
+Description:
+    Stubs out a new spec file for a model cache.
+
+Example:
+    `rails generate rspec:model_cache foo`
+
+    Generates:
+      Test: spec/caches/foo_cache_spec.rb
