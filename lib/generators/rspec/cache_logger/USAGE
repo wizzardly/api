@@ -1,8 +1,0 @@
-Description:
-    Stubs out a new spec file for a cache logger.
-
-Example:
-    `rails generate rspec:cache_logger foo`
-
-    Generates:
-      Test: spec/loggers/caches/foo_cache_logger_spec.rb
