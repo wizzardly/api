@@ -6,7 +6,7 @@ module Cache
 
     check_class_collision suffix: "RecordCache"
 
-    hook_for :test_framework
+    hook_for :test_framework, as: "record_cache"
 
     def create_record_cache_file
       template "record_cache.rb", File.join("app/caches/", class_path, "#{file_name}_cache.rb")
