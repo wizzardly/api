@@ -194,6 +194,10 @@ GEM
     public_suffix (3.0.2)
     puma (3.11.4)
     puma (3.11.4-java)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
+    pundit-matchers (1.6.0)
+      rspec-rails (>= 3.0.0)
     rack (2.0.5)
     rack-cors (1.0.2)
     rack-protection (2.0.1)
@@ -333,6 +337,8 @@ DEPENDENCIES
   logstash-logger
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
+  pundit
+  pundit-matchers
   rack-cors
   rails (~> 5.2.0)
   redis

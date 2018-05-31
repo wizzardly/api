@@ -23,6 +23,9 @@ gem "sentry-raven"
 # Authentication
 gem "knock"
 
+# Authorization
+gem "pundit"
+
 # Security
 gem "rack-cors"
 
@@ -50,6 +53,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "timecop"
 
+  gem "pundit-matchers"
   gem "shoulda-matchers", git: "https://github.com/thoughtbot/shoulda-matchers.git", branch: "rails-5"
 
   gem "byebug", platforms: %i[mri mingw x64_mingw]
