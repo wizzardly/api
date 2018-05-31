@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe ApplicationController, type: :controller do
   it { is_expected.to be_a ActionController::API }
+  it { is_expected.to be_a Knock::Authenticable }
   it { is_expected.to be_a Pundit }
 
   it { is_expected.to use_after_action :verify_authorized }
