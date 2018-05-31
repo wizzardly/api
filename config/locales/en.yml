@@ -5,3 +5,5 @@ en:
     sentry_failure:
       subject: "[CRITICAL] Failed to report to Sentry!"
       title: "Failed to Report Error to Sentry"
+  pundit:
+    user_forbidden: "You are not allowed to do that."
