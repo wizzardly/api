@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/admin/sidekiq"
 
   post :user_token, to: "user_token#create"
+  get :user_info, to: "user_info#show"
 end
