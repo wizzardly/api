@@ -21,7 +21,9 @@ RSpec.describe ApplicationPolicy, type: :policy do
 
   it { is_expected.to forbid_action(:index) }
   it { is_expected.to forbid_action(:create) }
+  it { is_expected.to forbid_action(:new) }
   it { is_expected.to forbid_action(:update) }
+  it { is_expected.to forbid_action(:edit) }
   it { is_expected.to forbid_action(:destroy) }
 
   context "when the record is within the scope" do
@@ -34,60 +36,26 @@ RSpec.describe ApplicationPolicy, type: :policy do
     it { is_expected.to forbid_action(:show) }
   end
 
-  context "when create? is true" do
+  shared_context "with a policy permitting" do |method|
     subject { example_class.new(user, record) }
 
     let(:example_class) do
       Class.new(ApplicationPolicy) do
-        def create?
-          true
-        end
+        define_method(method) { true }
       end
     end
+  end
+
+  context "when the policy permits #create?" do
+    include_context "with a policy permitting", :create?
 
     it { is_expected.to permit_action(:new) }
   end
 
-  context "when create? is false" do
-    subject { example_class.new(user, record) }
-
-    let(:example_class) do
-      Class.new(ApplicationPolicy) do
-        def create?
-          false
-        end
-      end
-    end
-
-    it { is_expected.to forbid_action(:new) }
-  end
-
-  context "when update? is true" do
-    subject { example_class.new(user, record) }
-
-    let(:example_class) do
-      Class.new(ApplicationPolicy) do
-        def update?
-          true
-        end
-      end
-    end
+  context "when the policy permits #create?" do
+    include_context "with a policy permitting", :update?
 
     it { is_expected.to permit_action(:edit) }
-  end
-
-  context "when update? is false" do
-    subject { example_class.new(user, record) }
-
-    let(:example_class) do
-      Class.new(ApplicationPolicy) do
-        def update?
-          false
-        end
-      end
-    end
-
-    it { is_expected.to forbid_action(:edit) }
   end
 
   describe "#scope" do
