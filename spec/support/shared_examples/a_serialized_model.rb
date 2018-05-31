@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples_for "a serialized model" do
   it "responds with data" do
     expect(controller).to respond_with :success

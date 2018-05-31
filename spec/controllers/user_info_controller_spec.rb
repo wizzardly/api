@@ -9,8 +9,6 @@ RSpec.describe UserInfoController, type: :controller do
   before { allow(controller).to receive(:authorize).and_call_original }
 
   describe "GET #show" do
-    let(:headers) { nil }
-
     context "when guest" do
       before { get :show }
 

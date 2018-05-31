@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_context "with authenticated user" do
   let(:user) { create :user }
   let(:token) { Knock::AuthToken.new(payload: { sub: user.id }).token }
