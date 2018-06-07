@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: wizzardly-api_development
+  database: api-wizzard-ly_development
 
 test:
   <<: *default
-  database: wizzardly-api_test
+  database: api-wizzard-ly_test
 
 production:
   <<: *default
