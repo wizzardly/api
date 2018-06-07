@@ -1,8 +1,8 @@
-# wizzardly-api
+# api.wizzard.ly
 
-[![Build Status](https://semaphoreci.com/api/v1/wizzardly/wizzardly-api/branches/master/badge.svg)](https://semaphoreci.com/wizzardly/wizzardly-api)
-[![Maintainability](https://api.codeclimate.com/v1/badges/3817b057abd79f487c3d/maintainability)](https://codeclimate.com/github/wizzardly/wizzardly-api/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/3817b057abd79f487c3d/test_coverage)](https://codeclimate.com/github/wizzardly/wizzardly-api/test_coverage)
+[![Build Status](https://semaphoreci.com/api/v1/wizzardly/api-wizzard-ly/branches/master/badge.svg)](https://semaphoreci.com/wizzardly/api-wizzard-ly)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1540a3df780eba3013f0/maintainability)](https://codeclimate.com/github/wizzardly/api.wizzard.ly/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/1540a3df780eba3013f0/test_coverage)](https://codeclimate.com/github/wizzardly/api.wizzard.ly/test_coverage)
 
 An open source card game server.
 
@@ -11,7 +11,7 @@ An open source card game server.
 1. Clone this repository, then:
 
 ```bash
-cd /path/to/wizzardly-api
+cd /path/to/api.wizzard.ly
 bundle install
 rake db:create db:migrate
 ```
@@ -20,7 +20,7 @@ rake db:create db:migrate
 
 ```bash
 cd ~/.puma-dev
-ln -s /path/to/wizzardly-api api.wizzardly
+ln -s /path/to/api.wizzard.ly api.wizzardly
 ```
 
 1. Visit `https://api.wizzardly.dev`
