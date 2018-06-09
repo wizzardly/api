@@ -1,9 +1,0 @@
-Description:
-    Stubs out a new logger file.
-
-Example:
-    `rails generate logger foo`
-
-    Generates:
-      Logger: app/loggers/foo_logger.rb
-        Test: spec/loggers/foo_logger_spec.rb
