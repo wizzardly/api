@@ -3,12 +3,12 @@
 class SentryJob < ApplicationJob
   queue_as :very_high
 
-  rescue_from ActiveJob::DeserializationError do |deserialization_error|
+  rescue_from ActiveJob::DeserializationError do |error|
     # If not rescued, this error causes an infinite loop.
     ActiveSupport::Notifications.instrument(
       "deserialization_error.sentry_job.error",
       event_hash: arguments[0],
-      deserialization_error: deserialization_error,
+      error: error,
     )
   end
 

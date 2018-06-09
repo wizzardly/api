@@ -29,7 +29,7 @@ RSpec.describe SentryJob, type: :job do
 
       it_behaves_like "an instrumented event", "deserialization_error.sentry_job.error" do
         let(:expected_data) do
-          { event_hash: event_hash, deserialization_error: an_instance_of(ActiveJob::DeserializationError) }
+          { event_hash: event_hash, error: an_instance_of(ActiveJob::DeserializationError) }
         end
       end
 
