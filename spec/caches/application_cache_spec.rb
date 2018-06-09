@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe ApplicationCache, type: :cache do
   let(:redis) { Redis.new }
   let(:id) { rand(1..100) }
-  let(:cache_key) { described_class.cache_key }
+  let(:key) { described_class.key }
 
   describe ".flush_entire_cache" do
     subject(:example_method) { described_class.flush_entire_cache }
@@ -32,7 +32,7 @@ RSpec.describe ApplicationCache, type: :cache do
       expect { example_method }.to change { redis.keys }.from(array_including(starting_keys)).to [ unrelated_key ]
     end
 
-    it_behaves_like "an instrumented event", "flush_entire_cache.application_cache" do
+    it_behaves_like "an instrumented event", "flush_entire_cache.application_cache.info" do
       before { example_method }
 
       let(:expected_data) do
@@ -47,12 +47,12 @@ RSpec.describe ApplicationCache, type: :cache do
     let(:other_id) { id + 1 }
     let(:unrelated_key) { Faker::Lorem.word }
     let(:starting_keys) do
-      [ cache_key, unrelated_key ]
+      [ key, unrelated_key ]
     end
 
     before do
-      redis.hset(cache_key, id, "test")
-      redis.hset(cache_key, other_id, "test")
+      redis.hset(key, id, "test")
+      redis.hset(key, other_id, "test")
       redis.hset(unrelated_key, id, "test")
       redis.hset(unrelated_key, other_id, "test")
     end
@@ -61,11 +61,11 @@ RSpec.describe ApplicationCache, type: :cache do
       expect { example_method }.to change { redis.keys }.from(array_including(starting_keys)).to([ unrelated_key ])
     end
 
-    it_behaves_like "an instrumented event", "clear_all.application_cache" do
+    it_behaves_like "an instrumented event", "clear_all.application_cache.info" do
       before { example_method }
 
       let(:expected_data) do
-        { keyspace: cache_key }
+        { keyspace: key }
       end
     end
   end
@@ -98,8 +98,8 @@ RSpec.describe ApplicationCache, type: :cache do
     it { is_expected.to eq value }
   end
 
-  describe ".cache_key" do
-    subject { example_class.cache_key }
+  describe ".key" do
+    subject { example_class.key }
 
     let(:class_name) { Faker::Internet.domain_word.capitalize }
     let(:example_class) { Class.new(described_class) }
@@ -121,14 +121,14 @@ RSpec.describe ApplicationCache, type: :cache do
         end
 
         let(:expected_data) do
-          { cache_key: cache_key, id: id }.merge(extra_data)
+          { key: key, id: id }.merge(extra_data)
         end
 
         before { example_method }
       end
 
       shared_examples_for "a cache miss" do
-        it_behaves_like "an instrumented event", "miss.application_cache" do
+        it_behaves_like "an instrumented event", "miss.application_cache.info" do
           include_context "with expected data"
         end
       end
@@ -139,7 +139,7 @@ RSpec.describe ApplicationCache, type: :cache do
         end
 
         it "does not set a cache value" do
-          expect { example_method }.not_to change { redis.hget(cache_key, id) }.from(nil)
+          expect { example_method }.not_to change { redis.hget(key, id) }.from(nil)
         end
 
         it_behaves_like "a cache miss"
@@ -160,10 +160,10 @@ RSpec.describe ApplicationCache, type: :cache do
 
         it_behaves_like "a miss which doesn't cache"
 
-        it_behaves_like "an instrumented event", "error_generating_value.application_cache" do
+        it_behaves_like "an instrumented event", "error_generating_value.application_cache.error" do
           include_context "with expected data" do
             let(:extra_data) do
-              { generation_error: an_instance_of(StandardError) }
+              { error: an_instance_of(StandardError) }
             end
           end
         end
@@ -174,10 +174,10 @@ RSpec.describe ApplicationCache, type: :cache do
 
         it_behaves_like "a miss which doesn't cache"
 
-        it_behaves_like "an instrumented event", "rollback.application_cache" do
+        it_behaves_like "an instrumented event", "rollback.application_cache.error" do
           include_context "with expected data" do
             let(:extra_data) do
-              { rollback_error: an_instance_of(ApplicationCache::CacheRollback) }
+              { error: an_instance_of(ApplicationCache::CacheRollback) }
             end
           end
         end
@@ -189,12 +189,12 @@ RSpec.describe ApplicationCache, type: :cache do
         before { allow(instance).to receive(:generate_value!).and_return(generated_value) }
 
         it "generates the value and caches it" do
-          expect { example_method }.to change { redis.hget(cache_key, id) }.from(nil).to(generated_value)
+          expect { example_method }.to change { redis.hget(key, id) }.from(nil).to(generated_value)
         end
 
         it_behaves_like "a cache miss"
 
-        it_behaves_like "an instrumented event", "generate_and_cache_value.application_cache" do
+        it_behaves_like "an instrumented event", "generate_and_cache_value.application_cache.info" do
           include_context "with expected data"
         end
       end
@@ -203,7 +203,7 @@ RSpec.describe ApplicationCache, type: :cache do
     context "when a value has been cached" do
       before do
         allow(instance).to receive(:generate_value!)
-        redis.hset(cache_key, id, cached_value)
+        redis.hset(key, id, cached_value)
       end
 
       shared_examples_for "there's a cached value" do
@@ -213,9 +213,9 @@ RSpec.describe ApplicationCache, type: :cache do
           expect(instance).not_to have_received(:generate_value!)
         end
 
-        it_behaves_like "an instrumented event", "hit.application_cache" do
+        it_behaves_like "an instrumented event", "hit.application_cache.debug" do
           let(:expected_data) do
-            { cache_key: cache_key, id: id }
+            { key: key, id: id }
           end
         end
       end
@@ -263,26 +263,26 @@ RSpec.describe ApplicationCache, type: :cache do
     end
 
     before do
-      redis.hset(cache_key, id, "test")
-      redis.hset(cache_key, other_id, "test")
+      redis.hset(key, id, "test")
+      redis.hset(key, other_id, "test")
     end
 
     it "removes only the specific id from the cache key" do
-      expect { example_method }.to change { redis.hgetall(cache_key) }.from(starting_values).to(expected_values)
+      expect { example_method }.to change { redis.hgetall(key) }.from(starting_values).to(expected_values)
     end
 
-    it_behaves_like "an instrumented event", "clear.application_cache" do
+    it_behaves_like "an instrumented event", "clear.application_cache.info" do
       before { example_method }
 
       let(:expected_data) do
-        { cache_key: cache_key, id: id }
+        { key: key, id: id }
       end
     end
   end
 
-  describe "#cache_key" do
+  describe "#key" do
     subject { described_class.new(id) }
 
-    it { is_expected.to delegate_method(:cache_key).to(:class) }
+    it { is_expected.to delegate_method(:key).to(:class) }
   end
 end

@@ -11,7 +11,7 @@ class ApplicationCache
     end
 
     def clear_all
-      delete_keys cache_key, __method__
+      delete_keys key, __method__
     end
 
     def get(id)
@@ -22,7 +22,7 @@ class ApplicationCache
       new(id).clear
     end
 
-    def cache_key
+    def key
       "#{BASE_CACHE_KEY}:#{name}"
     end
 
@@ -33,7 +33,7 @@ class ApplicationCache
       keys = redis.keys("#{keyspace}*")
       redis.del(*keys) if keys.any?
 
-      ActiveSupport::Notifications.instrument "#{method}.application_cache", keyspace: keyspace
+      ActiveSupport::Notifications.instrument "#{method}.application_cache.info", keyspace: keyspace
 
       keys
     end
@@ -52,8 +52,8 @@ class ApplicationCache
   end
 
   def clear
-    instrument __method__
-    redis.hdel(cache_key, id) == 1
+    instrument :info, __method__
+    redis.hdel(key, id) == 1
   end
 
   protected
@@ -83,45 +83,45 @@ class ApplicationCache
 
   private
 
-  delegate :cache_key, to: :class
+  delegate :key, to: :class
 
   attr_reader :redis
 
-  def instrument(event, **data)
-    ActiveSupport::Notifications.instrument "#{event}.application_cache", { cache_key: cache_key, id: id }.merge(data)
+  def instrument(criticality, event, **data)
+    ActiveSupport::Notifications.instrument "#{event}.application_cache.#{criticality}", data.merge(key: key, id: id)
   end
 
   def fetch_value
     if cached?
-      instrument :hit
+      instrument :debug, :hit
       return current_value
     end
 
-    instrument :miss
+    instrument :info, :miss
 
     begin
       generate_and_cache_value
-    rescue StandardError => generation_error
-      instrument :error_generating_value, generation_error: generation_error
+    rescue StandardError => error
+      instrument :error, :error_generating_value, error: error
       nil
     end
   end
 
   def cached?
-    redis.hexists(cache_key, id)
+    redis.hexists(key, id)
   end
 
   def current_value
-    redis.hget(cache_key, id)
+    redis.hget(key, id)
   end
 
   def generate_and_cache_value
     generated_value = generate_value!
-    redis.hset(cache_key, id, generated_value)
-    instrument __method__
+    redis.hset(key, id, generated_value)
+    instrument :info, __method__
     generated_value
-  rescue CacheRollback => rollback_error
-    instrument :rollback, rollback_error: rollback_error
+  rescue CacheRollback => error
+    instrument :error, :rollback, error: error
     nil
   end
 end

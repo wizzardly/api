@@ -1,8 +1,0 @@
-Description:
-    Stubs out a new spec file for a logger.
-
-Example:
-    `rails generate rspec:logger foo`
-
-    Generates:
-      Test: spec/loggers/foo_logger_spec.rb

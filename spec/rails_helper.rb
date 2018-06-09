@@ -43,11 +43,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
 
-    # https://github.com/rspec/rspec-mocks/issues/1121
-    %i[debug info warn error fatal add].each do |method|
-      allow(Rails.logger).to receive(method).and_call_original
-    end
-
     allow(ActiveSupport::Notifications).to receive(:instrument).and_call_original
   end
 
