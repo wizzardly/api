@@ -1,15 +1,13 @@
 require: rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.5.0
+  TargetRubyVersion: 2.5.1
   Exclude:
     - bin/**/*
-    - config/boot.rb
     - Gemfile*
     - Rakefile
-    - spec/*_hepler.rb
+    - spec/*_helper.rb
     - db/**/*
-    - lib/tasks/**/*
 
 Layout/AccessModifierIndentation:
   Enabled: true
@@ -30,9 +28,7 @@ Layout/BlockAlignment:
 Layout/BlockEndNewline:
   Enabled: true
 Layout/CaseIndentation:
-  Enabled: true
-  EnforcedStyle: end
-  IndentOneStep: true
+  Enabled: false
 Layout/ClassStructure:
   Categories:
     module_inclusion:
@@ -377,29 +373,30 @@ Lint/Void:
 
 Metrics/AbcSize:
   Enabled: true
-  Max: 24
+  Max: 32
 Metrics/BlockLength:
   Enabled: true
   Max: 24
   Exclude:
+    - config/environments/*
     - spec/**/*
 Metrics/BlockNesting:
   Enabled: true
   Max: 3
 Metrics/ClassLength:
-  Enabled: true
+  Enabled: false
   Max: 240
 Metrics/CyclomaticComplexity:
   Enabled: true
   Max: 6
 Metrics/LineLength:
-  Enabled: true
+  Enabled: false
   Max: 120
 Metrics/MethodLength:
   Enabled: true
-  Max: 12
+  Max: 24
 Metrics/ModuleLength:
-  Enabled: true
+  Enabled: false
   Max: 240
 Metrics/ParameterLists:
   Enabled: true
@@ -446,6 +443,7 @@ Naming/PredicateName:
     - define_method
     - define_singleton_method
   Exclude:
+    - app/serializers/*_serializer.rb
     - spec/**/*
 Naming/UncommunicativeBlockParamName:
   Enabled: true
@@ -453,7 +451,7 @@ Naming/UncommunicativeBlockParamName:
   AllowNamesEndingInNumbers: true
 Naming/UncommunicativeMethodParamName:
   Enabled: true
-  MinNameLength: 3
+  MinNameLength: 2
   AllowNamesEndingInNumbers: true
   AllowedNames:
     - a
@@ -676,7 +674,7 @@ Style/Alias:
   EnforcedStyle: prefer_alias_method
 Style/AndOr:
   Enabled: true
-  EnforcedStyle: always
+  EnforcedStyle: conditionals
 Style/ArrayJoin:
   Enabled: true
 Style/AsciiComments:
@@ -687,7 +685,7 @@ Style/AutoResourceCleanup:
   Enabled: true
 Style/BarePercentLiterals:
   Enabled: true
-  EnforcedStyle: percent_q
+  EnforcedStyle: bare_percent
 Style/BeginBlock:
   Enabled: true
 Style/BlockComments:
@@ -703,8 +701,7 @@ Style/CaseEquality:
 Style/CharacterLiteral:
   Enabled: true
 Style/ClassAndModuleChildren:
-  Enabled: true
-  EnforcedStyle: nested
+  Enabled: false
 Style/ClassCheck:
   Enabled: true
   EnforcedStyle: is_a?
@@ -762,7 +759,7 @@ Style/EmptyElse:
   EnforcedStyle: both
 Style/EmptyLambdaParameter:
   Enabled: true
-Style/EmptyLineAfterGuardClause:
+Layout/EmptyLineAfterGuardClause:
   Enabled: true
 Style/EmptyLiteral:
   Enabled: true
@@ -842,8 +839,6 @@ Style/MinMax:
   Enabled: true
 Style/MissingElse:
   Enabled: false
-Style/MethodMissing:
-  Enabled: true
 Style/MixinGrouping:
   Enabled: true
   EnforcedStyle: separated
@@ -855,6 +850,10 @@ Style/ModuleFunction:
 Style/MultilineBlockChain:
   Enabled: true
 Style/MultilineIfModifier:
+  Enabled: true
+Style/MethodMissingSuper:
+  Enabled: true
+Style/MissingRespondToMissing:
   Enabled: true
 Style/MultilineIfThen:
   Enabled: false
@@ -1250,9 +1249,7 @@ RSpec/VoidExpect:
 FactoryBot/CreateList:
   Enabled: true
   EnforcedStyle: create_list
-FactoryBot/DynamicAttributeDefinedStatically:
-  Enabled: true
-FactoryBot/StaticAttributeDefinedDynamically:
+FactoryBot/AttributeDefinedStatically:
   Enabled: true
 
 Capybara/CurrentPathExpectation:

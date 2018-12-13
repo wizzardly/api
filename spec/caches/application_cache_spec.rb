@@ -32,12 +32,8 @@ RSpec.describe ApplicationCache, type: :cache do
       expect { example_method }.to change { redis.keys }.from(array_including(starting_keys)).to [ unrelated_key ]
     end
 
-    it_behaves_like "an instrumented event", "flush_entire_cache.application_cache.info" do
+    it_behaves_like "a surveiled event", :flush_entire_cache do
       before { example_method }
-
-      let(:expected_data) do
-        { keyspace: base_key }
-      end
     end
   end
 
@@ -61,12 +57,12 @@ RSpec.describe ApplicationCache, type: :cache do
       expect { example_method }.to change { redis.keys }.from(array_including(starting_keys)).to([ unrelated_key ])
     end
 
-    it_behaves_like "an instrumented event", "clear_all.application_cache.info" do
-      before { example_method }
-
+    it_behaves_like "a surveiled event", :clear_all do
       let(:expected_data) do
-        { keyspace: key }
+        { key: key }
       end
+
+      before { example_method }
     end
   end
 
@@ -128,7 +124,7 @@ RSpec.describe ApplicationCache, type: :cache do
       end
 
       shared_examples_for "a cache miss" do
-        it_behaves_like "an instrumented event", "miss.application_cache.info" do
+        it_behaves_like "an instrumented event", "cache_miss.ApplicationCache.info" do
           include_context "with expected data"
         end
       end
@@ -160,10 +156,10 @@ RSpec.describe ApplicationCache, type: :cache do
 
         it_behaves_like "a miss which doesn't cache"
 
-        it_behaves_like "an instrumented event", "error_generating_value.application_cache.error" do
+        it_behaves_like "an instrumented event", "failed_to_generate_value.ApplicationCache.error" do
           include_context "with expected data" do
             let(:extra_data) do
-              { error: an_instance_of(StandardError) }
+              { exception: an_instance_of(StandardError) }
             end
           end
         end
@@ -174,10 +170,10 @@ RSpec.describe ApplicationCache, type: :cache do
 
         it_behaves_like "a miss which doesn't cache"
 
-        it_behaves_like "an instrumented event", "rollback.application_cache.error" do
+        it_behaves_like "an instrumented event", "rollback.ApplicationCache.error" do
           include_context "with expected data" do
             let(:extra_data) do
-              { error: an_instance_of(ApplicationCache::CacheRollback) }
+              { exception: an_instance_of(ApplicationCache::CacheRollback) }
             end
           end
         end
@@ -194,7 +190,7 @@ RSpec.describe ApplicationCache, type: :cache do
 
         it_behaves_like "a cache miss"
 
-        it_behaves_like "an instrumented event", "generate_and_cache_value.application_cache.info" do
+        it_behaves_like "an instrumented event", "generated_and_cached_value.ApplicationCache.info" do
           include_context "with expected data"
         end
       end
@@ -213,7 +209,7 @@ RSpec.describe ApplicationCache, type: :cache do
           expect(instance).not_to have_received(:generate_value!)
         end
 
-        it_behaves_like "an instrumented event", "hit.application_cache.debug" do
+        it_behaves_like "an instrumented event", "cache_hit.ApplicationCache.debug" do
           let(:expected_data) do
             { key: key, id: id }
           end
@@ -271,12 +267,12 @@ RSpec.describe ApplicationCache, type: :cache do
       expect { example_method }.to change { redis.hgetall(key) }.from(starting_values).to(expected_values)
     end
 
-    it_behaves_like "an instrumented event", "clear.application_cache.info" do
-      before { example_method }
-
+    it_behaves_like "a surveiled event", :clear do
       let(:expected_data) do
         { key: key, id: id }
       end
+
+      before { example_method }
     end
   end
 

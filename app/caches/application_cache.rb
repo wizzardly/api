@@ -7,11 +7,11 @@ class ApplicationCache
 
   class << self
     def flush_entire_cache
-      delete_keys BASE_CACHE_KEY, __method__
+      surveil(__method__) { delete_keys BASE_CACHE_KEY }
     end
 
     def clear_all
-      delete_keys key, __method__
+      surveil(__method__, key: key) { delete_keys key }
     end
 
     def get(id)
@@ -28,13 +28,10 @@ class ApplicationCache
 
     private
 
-    def delete_keys(keyspace, method)
+    def delete_keys(keyspace)
       redis = Redis.new
       keys = redis.keys("#{keyspace}*")
       redis.del(*keys) if keys.any?
-
-      ActiveSupport::Notifications.instrument "#{method}.application_cache.info", keyspace: keyspace
-
       keys
     end
   end
@@ -52,8 +49,7 @@ class ApplicationCache
   end
 
   def clear
-    instrument :info, __method__
-    redis.hdel(key, id) == 1
+    surveil(__method__, key: key, id: id) { redis.hdel(key, id) == 1 }
   end
 
   protected
@@ -87,24 +83,15 @@ class ApplicationCache
 
   attr_reader :redis
 
-  def instrument(criticality, event, **data)
-    ActiveSupport::Notifications.instrument "#{event}.application_cache.#{criticality}", data.merge(key: key, id: id)
-  end
-
   def fetch_value
-    if cached?
-      instrument :debug, :hit
-      return current_value
-    end
+    debug :cache_hit, key: key, id: id and return current_value if cached?
 
-    instrument :info, :miss
+    info :cache_miss, key: key, id: id
 
-    begin
-      generate_and_cache_value
-    rescue StandardError => error
-      instrument :error, :error_generating_value, error: error
-      nil
-    end
+    generate_and_cache_value
+  rescue StandardError => exception
+    error :failed_to_generate_value, key: key, id: id, exception: exception
+    nil
   end
 
   def cached?
@@ -118,10 +105,10 @@ class ApplicationCache
   def generate_and_cache_value
     generated_value = generate_value!
     redis.hset(key, id, generated_value)
-    instrument :info, __method__
+    info :generated_and_cached_value, key: key, id: id
     generated_value
-  rescue CacheRollback => error
-    instrument :error, :rollback, error: error
+  rescue CacheRollback => exception
+    error :rollback, key: key, id: id, exception: exception
     nil
   end
 end
