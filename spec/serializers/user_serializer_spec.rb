@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -9,6 +8,7 @@
 #  first_name      :string           not null
 #  id              :bigint(8)        not null, primary key
 #  last_name       :string           not null
+#  matches_count   :integer          default(0)
 #  password_digest :string           not null
 #  updated_at      :datetime         not null
 #
@@ -16,7 +16,6 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-
 
 require "rails_helper"
 

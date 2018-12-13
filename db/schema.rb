@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_09_040354) do
+ActiveRecord::Schema.define(version: 2018_12_13_045847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "matches", force: :cascade do |t|
+    t.boolean "finished", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matches_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "match_id", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
@@ -22,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_09_040354) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "matches_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
