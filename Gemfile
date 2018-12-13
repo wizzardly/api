@@ -8,7 +8,7 @@ ruby "2.5.1"
 gem "dotenv-rails", groups: %i[development test]
 
 # Rails
-gem "rails", "~> 5.2.0"
+gem "rails", "~> 5.2.1"
 
 # Database
 gem "pg", ">= 0.18", "< 2.0"
@@ -45,6 +45,7 @@ gem "bootsnap", ">= 1.1.0", require: false
 gem "config"
 gem "lograge"
 gem "logstash-logger"
+gem "spicerack", "~> 0.5.0"
 
 group :development, :test do
   gem "database_cleaner"
@@ -61,6 +62,7 @@ group :development, :test do
   gem "rubocop", require: false
   gem "rubocop-rspec"
   gem "simplecov"
+  gem "rspice"
 end
 
 group :development do

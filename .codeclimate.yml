@@ -1,11 +1,15 @@
-exclude_paths:
-  - "config/"
-  - "lib/generators"
-  - "**/vendor/**/*"
-
-engines:
+plugins:
   rubocop:
     enabled: true
+
+exclude_patterns:
+  - "bin/"
+  - "public/"
+  - "db/"
+  - "config/"
+  - "lib/generators"
+  - "lib/tasks"
+  - "**/vendor/**/*"
 
 ratings:
   paths:

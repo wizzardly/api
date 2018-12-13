@@ -27,9 +27,9 @@ RSpec.describe SentryJob, type: :job do
         instance.perform_now
       end
 
-      it_behaves_like "an instrumented event", "deserialization_error.sentry_job.error" do
+      it_behaves_like "an instrumented event", "deserialization_error.#{described_class}.error" do
         let(:expected_data) do
-          { event_hash: event_hash, error: an_instance_of(ActiveJob::DeserializationError) }
+          { event_hash: event_hash, exception: an_instance_of(ActiveJob::DeserializationError) }
         end
       end
 
@@ -42,7 +42,7 @@ RSpec.describe SentryJob, type: :job do
       context "when sentry is enabled" do
         it { is_expected.to have_received(:send_event).with(event_hash) }
 
-        it_behaves_like "an instrumented event", "sent_to_sentry.sentry_job.info"
+        it_behaves_like "a surveiled event", :send_to_sentry, "#{described_class}.info"
       end
 
       context "when sentry disabled" do
@@ -50,7 +50,7 @@ RSpec.describe SentryJob, type: :job do
 
         it { is_expected.not_to have_received(:send_event) }
 
-        it_behaves_like "an instrumented event", "sentry_disabled.sentry_job.debug" do
+        it_behaves_like "an instrumented event", "sentry_disabled.#{described_class}.debug" do
           let(:expected_data) do
             { event_hash: event_hash }
           end
