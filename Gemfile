@@ -47,6 +47,9 @@ gem "lograge"
 gem "logstash-logger"
 gem "spicerack", "~> 0.5.0"
 
+# Security Patches
+gem "ffi", ">= 1.9.24"
+
 group :development, :test do
   gem "database_cleaner"
   gem "factory_bot_rails"
