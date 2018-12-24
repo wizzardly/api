@@ -14,5 +14,5 @@
 #
 
 class MatchSerializer < ApplicationSerializer
-  attributes :id, :finished
+  attributes :id, :status, :started_at, :paused_at, :finished_at
 end
