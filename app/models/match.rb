@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: matches
@@ -16,7 +17,25 @@ class Match < ApplicationRecord
 
   scope :unfinished, -> { where(status: unfinished_statuses) }
 
-  enum status: %i[active paused finished]
+  enum status: %i[pending active paused finished] do
+    event :activate do
+      transition pending: :active
+    end
+
+    event :pause do
+      transition active: :paused
+    end
+
+    event :unpause do
+      transition paused: :active
+    end
+
+    event :finish do
+      before { self.finished_at = Time.current }
+
+      transition all - %i[finished] => :finished
+    end
+  end
 
   class << self
     def unfinished_statuses

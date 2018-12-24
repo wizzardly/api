@@ -38,6 +38,7 @@ gem "roadie-rails"
 # ActiveRecord Utilities
 gem "active_model_serializers"
 gem "strip_attributes"
+gem "stateful_enum"
 
 # Utilities
 gem "bcrypt", "~> 3.1.7"
