@@ -163,6 +163,12 @@ RSpec.describe Match, type: :model do
     end
   end
 
+  shared_context "with an active match" do
+    let(:match) { build :match, :active }
+
+    before { Timecop.freeze }
+  end
+
   describe "#activate!" do
     subject(:activate!) { match.activate! }
 
@@ -186,11 +192,9 @@ RSpec.describe Match, type: :model do
   end
 
   describe "#pause!" do
+    include_context "with an active match"
+
     subject(:pause!) { match.pause! }
-
-    let(:match) { build :match, :active }
-
-    before { Timecop.freeze }
 
     it "sets paused_at" do
       expect { pause! }.to change { match.paused_at }.from(nil).to(Time.current)
@@ -210,11 +214,9 @@ RSpec.describe Match, type: :model do
   end
 
   describe "#finish!" do
+    include_context "with an active match"
+
     subject(:finish!) { match.finish! }
-
-    let(:match) { build :match, :active }
-
-    before { Timecop.freeze }
 
     it "sets finished_at" do
       expect { finish! }.to change { match.finished_at }.from(nil).to(Time.current)

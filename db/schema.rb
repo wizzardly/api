@@ -29,15 +29,6 @@ ActiveRecord::Schema.define(version: 2018_12_24_194922) do
     t.bigint "match_id", null: false
   end
 
-  create_table "players", force: :cascade do |t|
-    t.string "name"
-    t.integer "level", default: 1
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_players_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
