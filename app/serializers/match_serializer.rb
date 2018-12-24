@@ -4,12 +4,15 @@
 #
 # Table name: matches
 #
-#  created_at :datetime         not null
-#  finished   :boolean          default(FALSE)
-#  id         :bigint(8)        not null, primary key
-#  updated_at :datetime         not null
+#  created_at  :datetime         not null
+#  finished_at :datetime
+#  id          :bigint(8)        not null, primary key
+#  paused_at   :datetime
+#  started_at  :datetime
+#  status      :integer          default("pending")
+#  updated_at  :datetime         not null
 #
 
 class MatchSerializer < ApplicationSerializer
-  attributes :id, :finished
+  attributes :id, :status, :started_at, :paused_at, :finished_at
 end

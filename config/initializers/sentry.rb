@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Settings.sentry.enable
   Raven.configure do |config|
     config.dsn = Settings.sentry.dsn
