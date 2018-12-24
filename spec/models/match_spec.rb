@@ -1,12 +1,11 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: matches
 #
 #  created_at :datetime         not null
-#  finished   :boolean          default(FALSE)
 #  id         :bigint(8)        not null, primary key
+#  status     :integer          default(0)
 #  updated_at :datetime         not null
 #
 
@@ -14,6 +13,7 @@ require "rails_helper"
 
 RSpec.describe Match, type: :model do
   it { is_expected.to have_and_belong_to_many(:users) }
+  it { is_expected.to define_enum_for(:status).with(%i[active paused finished]) }
 
   describe ".users" do
     subject(:associate_user) { match.users << user }
@@ -40,7 +40,7 @@ RSpec.describe Match, type: :model do
       end
 
       context "with only finished user matches" do
-        let(:finished_match) { create :match, finished: true }
+        let(:finished_match) { create :match, status: :finished }
 
         before { finished_match.users << user }
 
