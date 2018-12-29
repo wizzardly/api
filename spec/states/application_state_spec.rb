@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe ApplicationState, type: :state do
-  subject { described_class }
-
   it { is_expected.to inherit_from StateBase }
+
+  it_behaves_like "a redis connection"
 end
