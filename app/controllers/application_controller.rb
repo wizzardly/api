@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::API
   include Knock::Authenticable
   include Pundit
+  include RedisConnection
 
   after_action :verify_authorized
 
