@@ -5,7 +5,7 @@ RSpec.shared_examples_for "a redis connection" do
 
   describe "#redis" do
     it "returns a redis connection" do
-      expect(subject.redis).to be_an_instance_of Redis
+      expect(subject.redis).to be_an_instance_of Redis # rubocop:disable RSpec/NamedSubject
     end
   end
 end
