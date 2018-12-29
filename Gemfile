@@ -35,6 +35,9 @@ gem "redis"
 # Email
 gem "roadie-rails"
 
+# Business Logic
+gem "flow"
+
 # ActiveRecord Utilities
 gem "active_model_serializers"
 gem "strip_attributes"
