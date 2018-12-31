@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   post :user_token, to: "user_token#create"
   get :user_info, to: "user_info#show"
+
+  get :matchmaking_status, to: "matchmaking#status"
 end
