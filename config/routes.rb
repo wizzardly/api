@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   get :user_info, to: "user_info#show"
 
   get :matchmaking_status, to: "matchmaking#status"
+  post :enter_matchmaking, to: "matchmaking#enter"
 end
