@@ -9,15 +9,20 @@ class MatchmakingController < ApplicationController
   end
 
   def enter
-    authorize Match.new, create?
+    authorize Match.new, :create?
 
-    EnterMatchmakingFlow.trigger(user: current_user)
+    EnterMatchmakingFlow.trigger(user: current_user) unless matchmaking?
+
     render_matchmaking_status_json
   end
 
   private
 
   def render_matchmaking_status_json
-    render json: { in_matchmaking: redis.sismember(ApplicationConstants::MATCHMAKING_SET_KEY, current_user.id) }
+    render json: { in_matchmaking: matchmaking? }
+  end
+
+  def matchmaking?
+    redis.sismember(ApplicationConstants::MATCHMAKING_SET_KEY, current_user.id)
   end
 end

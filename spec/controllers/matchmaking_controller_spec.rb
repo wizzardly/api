@@ -48,6 +48,17 @@ RSpec.describe MatchmakingController, type: :controller do
 
     subject(:post_enter) { post :enter }
 
+    context "with unfinished match" do
+      let(:expected_data) { {} }
+
+      before do
+        user.matches.create!
+        post_enter
+      end
+
+      it_behaves_like "an error response", :forbidden, "pundit.user_forbidden"
+    end
+
     context "when in matchmaking" do
       include_context "with user in matchmaking"
 
